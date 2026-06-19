@@ -44,6 +44,16 @@ module nft::nft{
     }
 
     //get details of the mint
-    git
+    public fun get_details_name(nft: &MyNFT): &String {
+        &nft.name
+    }
+    public fun get_details_description(nft: &MyNFT): &String {
+        &nft.description
+    }
+    public fun get_details_image_url(nft: &MyNFT): &String {
+        &nft.image_url
+    }
+    
+
     //burn the nft
 }
