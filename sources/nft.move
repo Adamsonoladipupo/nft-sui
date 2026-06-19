@@ -44,8 +44,6 @@ module nft::nft{
     }
 
     //get details of the mint
+    git
     //burn the nft
 }
-
-
-
