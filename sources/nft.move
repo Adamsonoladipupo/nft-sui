@@ -44,16 +44,24 @@ module nft::nft{
     }
 
     //get details of the mint
-    public fun get_details_name(nft: &MyNFT): &String {
-        &nft.name
-    }
-    public fun get_details_description(nft: &MyNFT): &String {
-        &nft.description
-    }
-    public fun get_details_image_url(nft: &MyNFT): &String {
-        &nft.image_url
+
+    public fun get_details(nft: &MyNFT): (String, String, String) {
+        (
+            nft.name,
+            nft.description,
+            nft.image_url
+        )
     }
     
 
     //burn the nft
+    public fun burn_nft(nft: MyNFT){
+        let MyNFT{
+            id,
+            name: _,
+            description: _,
+            image_url:_,
+        } = nft;
+        object::delete(id);
+    }
 }
