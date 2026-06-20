@@ -1,7 +1,7 @@
 #[test_only]
 module nft::nft_tests{
     use sui::test_scenario;
-    use nft::nft::{Self, MyNFT, get_name};
+    use nft::nft::{Self, MyNFT};
 
     #[test]
     fun test_that_an_nft_can_be_minted(){
@@ -53,8 +53,34 @@ module nft::nft_tests{
 
         };
 
+        test_scenario::end(scenario);
+    }
+
+    #[test]
+    fun test_that_an_nft_can_be_burned(){
+        let owner = @0xAAA;
+        let mut scenario = test_scenario::begin(owner);
+
+        test_scenario::next_tx(&mut scenario, owner);
+        {
+            nft::mint(
+                b"Semicolon",
+                 b"Testing",
+                  b"www.semicolon.com",
+                   test_scenario::ctx(&mut scenario)
+            );
+        };
+        test_scenario::next_tx(&mut scenario, owner);
+        {
+            let nft = test_scenario::take_from_sender<MyNFT>(&scenario);
+            nft::burn_nft(nft);
+        };
+
+        // {
+        //     let _nft = test_scenario::take_from_sender<MyNFT>(&scenario);
+        //     nft::burn_nft(_nft);
+        // };
 
         test_scenario::end(scenario);
-
     }
 }
