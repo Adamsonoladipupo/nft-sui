@@ -76,11 +76,6 @@ module nft::nft_tests{
             nft::burn_nft(nft);
         };
 
-        // {
-        //     let _nft = test_scenario::take_from_sender<MyNFT>(&scenario);
-        //     nft::burn_nft(_nft);
-        // };
-
         test_scenario::end(scenario);
     }
 }
