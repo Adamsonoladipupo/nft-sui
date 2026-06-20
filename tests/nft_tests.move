@@ -39,27 +39,20 @@ module nft::nft_tests{
                 test_scenario::ctx(&mut scenario)
             );
         };
+
         test_scenario::next_tx(&mut scenario, owner);
         {
             let nft = test_scenario::take_from_sender<MyNFT>(&scenario);
+            let (name, description, image_url) = nft::get_details(&nft);
 
-            assert!(
-                *nft::get_details_name(&nft) == std::string::utf8(b"Semicolon"),
-                0
-            );
-
-            assert!(
-                *nft::get_details_description(&nft) == std::string::utf8(b"Testing"),
-                1
-            );
-
-            assert!(
-                *nft::get_details_image_url(&nft) == std::string::utf8(b"www.semicolon.africa"),
-                2
-            );
+            assert!(name == std::string::utf8(b"Semicolon"), 0);
+            assert!(description == std::string::utf8(b"Testing"), 1);
+            assert!(image_url == std::string::utf8(b"www.semicolon.africa"), 2);
 
             test_scenario::return_to_sender(&scenario, nft);
+
         };
+
 
         test_scenario::end(scenario);
 
